@@ -1,4 +1,4 @@
-module gtihub.com/jensg-st/dbuilder
+module github.com/jensg-st/dbuilder
 
 go 1.17
 
