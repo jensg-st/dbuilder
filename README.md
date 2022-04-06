@@ -6,4 +6,5 @@ replace github.com/jensg-st/dbuilder => /home/jensg/go/src/github.com/jensg-st/d
 
 go run github.com/jensg-st/dbuilder/cmd/dbuilder init
 
+go generate ./app/
 
