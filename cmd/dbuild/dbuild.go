@@ -2,7 +2,8 @@ package main
 
 import (
 	"log"
-	"tetstme/cmd/internal/dbuild"
+
+	"github.com/jensg-st/dbuilder/cmd/internal/dbuild"
 
 	"github.com/spf13/cobra"
 )
