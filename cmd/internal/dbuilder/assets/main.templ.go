@@ -12,7 +12,7 @@ import (
 	_ "embed"
 )
 
-//go:embed ../schema.json
+//go:embed schema.json
 var schema []byte
 
 func handler(w http.ResponseWriter, r *http.Request, ri *reusable.RequestInfo) {
