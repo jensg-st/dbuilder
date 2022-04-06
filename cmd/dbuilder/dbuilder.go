@@ -3,17 +3,17 @@ package main
 import (
 	"log"
 
-	"github.com/jensg-st/dbuilder/cmd/internal/dbuild"
+	"github.com/jensg-st/dbuilder/cmd/internal/dbuilder"
 
 	"github.com/spf13/cobra"
 )
 
 func main() {
 	log.SetFlags(0)
-	cmd := &cobra.Command{Use: "dbuild"}
+	cmd := &cobra.Command{Use: "dbuilder"}
 	cmd.AddCommand(
-		dbuild.InitCmd(),
-		dbuild.GenerateCmd(),
+		dbuilder.InitCmd(),
+		dbuilder.GenerateCmd(),
 	)
 	_ = cmd.Execute()
 }
