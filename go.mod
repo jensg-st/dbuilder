@@ -1,4 +1,4 @@
-module tetstme
+module gtihub.com/jensg-st/dbuilder
 
 go 1.17
 
