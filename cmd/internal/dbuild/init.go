@@ -11,51 +11,46 @@ import (
 	"github.com/spf13/cobra"
 )
 
-//go:embed assets/schema.yaml
+//go:embed assets/schema.json
 var schema []byte
 
 //go:embed assets/input.yaml
 var input []byte
 
 //go:embed assets/Dockerfile
-var dockerfile []byte
+var dockerFile []byte
 
 //go:embed assets/generate.go
-var generate []byte
+var genFile []byte
+
+//go:embed assets/main.go.templ
+var mainFile []byte
 
 const (
-	defaultDir = "direktiv"
+	defaultDir = "app"
 )
 
 func InitCmd() *cobra.Command {
-	var target string
 	cmd := &cobra.Command{
 		Use:   "init",
 		Short: "initialize a direktiv container app",
 		Run: func(cmd *cobra.Command, names []string) {
-			if err := build(target); err != nil {
+			if err := build(); err != nil {
 				log.Fatalln(fmt.Errorf("dbuild init: %v", err))
 			}
 		},
 	}
-	cmd.Flags().StringVar(&target, "target", defaultDir, "target directory for application")
 	return cmd
 }
 
-func build(dir string) error {
-
-	appDir := filepath.Join(dir, "app")
-
-	if err := os.MkdirAll(appDir, os.ModePerm); err != nil {
-		return fmt.Errorf("creating application directory: %w", err)
-	}
+func build() error {
 
 	files := []struct {
 		name string
 		data []byte
 	}{
 		{
-			"schema.yaml",
+			"schema.json",
 			schema,
 		},
 		{
@@ -64,22 +59,26 @@ func build(dir string) error {
 		},
 		{
 			"Dockerfile",
-			dockerfile,
+			dockerFile,
 		},
 	}
 
 	for a := range files {
 
 		f := files[a]
-		if err := os.WriteFile(filepath.Join(dir, f.name),
+		if err := os.WriteFile(f.name,
 			[]byte(f.data), 0644); err != nil {
 			return fmt.Errorf("creating %s file: %w", f.name, err)
 		}
 
 	}
 
-	if err := os.WriteFile(filepath.Join(appDir, "generate.go"),
-		[]byte(generate), 0644); err != nil {
+	if err := os.MkdirAll(defaultDir, os.ModePerm); err != nil {
+		return fmt.Errorf("creating application directory: %w", err)
+	}
+
+	if err := os.WriteFile(filepath.Join(defaultDir, "generate.go"),
+		[]byte(genFile), 0644); err != nil {
 		return fmt.Errorf("creating generate.go file: %w", err)
 	}
 
