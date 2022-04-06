@@ -23,7 +23,7 @@ var dockerFile []byte
 //go:embed assets/generate.go
 var genFile []byte
 
-//go:embed assets/main.go.templ
+//go:embed assets/main.templ.go
 var mainFile []byte
 
 const (

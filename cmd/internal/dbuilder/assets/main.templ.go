@@ -1,12 +1,14 @@
 package main
 
 import (
-	"fmt"
+	"bytes"
+	"io/ioutil"
+	"log"
 	"net/http"
 
 	"github.com/direktiv/direktiv-apps/pkg/reusable"
 	"github.com/santhosh-tekuri/jsonschema"
-	
+
 	_ "embed"
 )
 
@@ -15,8 +17,6 @@ var schema []byte
 
 func handler(w http.ResponseWriter, r *http.Request, ri *reusable.RequestInfo) {
 
-
-
 	// if err := c.AddResource("schema.json", bytes.NewReader(group.Schema)); err != nil {
 	// 	t.Fatal(err)
 	// }
@@ -24,7 +24,6 @@ func handler(w http.ResponseWriter, r *http.Request, ri *reusable.RequestInfo) {
 	if err := c.AddResource("schema.json", bytes.NewReader(schema)); err != nil {
 		t.Fatal(err)
 	}
-
 
 	sch, err := jsonschema.Compile("testdata/person_schema.json")
 	if err != nil {
@@ -36,7 +35,6 @@ func handler(w http.ResponseWriter, r *http.Request, ri *reusable.RequestInfo) {
 		log.Fatal(err)
 	}
 
-
 	// obj := new(Input)
 	// err := reusable.Unmarshal(obj, true, r)
 	// if err != nil {
@@ -45,7 +43,6 @@ func handler(w http.ResponseWriter, r *http.Request, ri *reusable.RequestInfo) {
 	// }
 
 	// json schema test
-
 
 }
 
